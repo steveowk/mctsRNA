@@ -1,3 +1,7 @@
-__pycache__
+mctsRNA/__pycache__
+mctsRNA/temp
+mctsRNA/results
+mctsRNA/figures
+tests/__pycache__
+tests
 temp
-results
