@@ -1,0 +1,16 @@
+data:
+  runge_train_path : "./data/runge18train/"
+  runge_valid_path : "./data/runge18valid/"
+  modena_path      : "./data/modena/"
+  eterna_path      : "./data/eterna.txt"
+  kauf_train_path  : "./data/kauf_train.txt"
+  kauf_valid_path  : "./data/kauf_valid.txt"
+C : 1.42
+num_simulations : 100
+unpaired : ["A", "U", "G", "C"]
+paired:    ["AU", "CG", "GC", "UA", "GU", "UG"]
+paired_prob  :  {"AU" : 0.2,"CG" : 0.3, "GC" : 0.3, "UA" : 0.2, "GU" : 0.1, "UG" : 0.1}
+unpaired_prob : {"A": 0.5, "G": 0.3, "C": 0.1, "U": 0.1}
+mutation_threshold: 10
+max_sample : 1000
+result_path : "./results/"
