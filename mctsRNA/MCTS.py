@@ -12,7 +12,7 @@ class MCTS():
         root = TreeNode(self.state, action_ix, configs=self.configs) # root node
         for _ in range(self.simulations):
             leaf = root.select_leaf() # select and expand node 
-            v = leaf.rollout(search=self.search, verbose=verbose)  #rollout
+            v = leaf.rollout(self.search, verbose=verbose)  #rollout
             leaf.back_up(v) # backpropagate the ac. value
         if verbose:
             for key, node in root.children.items():

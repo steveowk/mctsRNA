@@ -64,7 +64,7 @@ class TreeNode():
                                 to_here=action, parent=self, prior=True, configs=self.configs)
         return self.children[action]
 
-    def rollout(self, search=False, verbose=False):  # simulation phase
+    def rollout(self, search, verbose=False):  # simulation phase
         current = self.state.copy_state()
         action_ix = self.action_ix
         while action_ix < self.state.max_seq_len and not current.is_terminal():
@@ -72,18 +72,15 @@ class TreeNode():
                 action_ix) else choice(self.configs["unpaired"])
             current.do_move(action, action_ix)
             action_ix += 1
-        assert (current.is_terminal())
         v = int(current.value() * 100)
         hamming_score = 100 - v
         mx_threshold = self.configs["mutation_threshold"]
         improve = v < 100 and hamming_score <= mx_threshold
         if verbose:
-            print(
-                f" value -> {v} hamming -> {hamming_score} improve -> {improve}")
-        if search and improve:
+            print(f" value -> {v} hamming -> {hamming_score} improve -> {improve}")
+        if int(search)==1 and improve:
             current.local_search(self.configs["max_sample"], mx_threshold)
-            if verbose:
-                print(f"Before LS {v/100} : After LS {current.value()}")
+            if verbose:print(f"Before LS {v/100} : After LS {current.value()}")
         return current.value()
 
     def back_up(self, result):  # backpropagation of value [ accuracy]
