@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     for iter in range(args.interval_iter):runner(iter)
 
-    # get the final results and the confidence intervals
+    # get the final results and the confidence intervals.
 
     DesignedRNA.generate_intervals()
     print("Done!!")
