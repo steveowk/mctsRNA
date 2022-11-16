@@ -52,6 +52,8 @@ def seq_processor(seq):
 
 
 def runner(iter):
+    # the main loop
+    
     Parallel(n_jobs=args.workers, verbose=args.freq)(delayed(seq_processor)(seq) for seq in dataset)
     filename = f"{config['result_path']}{args.dataset}/summary.csv"
     DesignedRNA.write_summary(filename, args.dataset, iter)
