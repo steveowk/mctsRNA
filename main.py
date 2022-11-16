@@ -57,8 +57,8 @@ def runner(iter):
     DesignedRNA.write_summary(filename, args.dataset, iter)
     
 if __name__ == "__main__":
-    
-    # run the parallelised model to get samples of size args.interval_iter
+
+    # run the parallelised model to get samples of the size args.interval_iter
 
     for iter in range(args.interval_iter):runner(iter)
     DesignedRNA.generate_intervals()
