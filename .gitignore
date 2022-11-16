@@ -5,3 +5,7 @@ mctsRNA/figures
 tests/__pycache__
 tests
 temp
+*.sh
+*.pyc
+*.pyo
+*.sh

@@ -83,8 +83,11 @@ class TreeNode():
             if verbose:print(f"Before LS {v/100} : After LS {current.value()}")
         return current.value()
 
-    def back_up(self, result):  # backpropagation of value [ accuracy]
+    def back_up(self, result):
+        """
+        Backpropagate the result of the rollout
+
+        """
         self.visits += 1.
         self.total_value += result
-        if self.parent:
-            self.parent.back_up(result)
+        if self.parent:self.parent.back_up(result)
