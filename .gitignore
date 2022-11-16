@@ -10,3 +10,5 @@ temp
 *.pyo
 *.sh
 results
+*.log
+*.logs

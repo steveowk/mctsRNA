@@ -53,7 +53,7 @@ def seq_processor(seq):
 
 def runner(iter):
     # the main loop
-    
+
     Parallel(n_jobs=args.workers, verbose=args.freq)(delayed(seq_processor)(seq) for seq in dataset)
     filename = f"{config['result_path']}{args.dataset}/summary.csv"
     DesignedRNA.write_summary(filename, args.dataset, iter)
@@ -63,5 +63,8 @@ if __name__ == "__main__":
     # run the parallelised model to get samples of the size args.interval_iter
 
     for iter in range(args.interval_iter):runner(iter)
+
+    # get the final results and the confidence intervals
+
     DesignedRNA.generate_intervals()
     print("Done!!")
