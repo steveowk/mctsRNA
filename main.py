@@ -1,3 +1,5 @@
+import sys
+sys.path.append("/usr/local/lib/python3.9/site-packages")
 from mctsRNA.LoadRNA import LoadData as DataModel
 import argparse
 import yaml
@@ -12,14 +14,14 @@ args = argparse.ArgumentParser()
 args.add_argument('-r', '--root',  type=str, help="root dir", default="./")
 args.add_argument('-t', '--test_mode',  type=int, help="test MCTS", default=1)
 args.add_argument('-m', '--rolls', type=int, help="rollouts", default=1)
-args.add_argument('-s', '--sims',  type=int,help=" MCTS simulations", default=300)
+args.add_argument('-s', '--sims',  type=int,help=" MCTS simulations", default=500)
 args.add_argument('-l', '--search', type=int,help="local search", default=0)
 args.add_argument('-c', '--config', type=str, help="configs", default="./mctsRNA/config.yml")
 args.add_argument('-v', '--verbose', type=bool, help="verbose", default=False)
 args.add_argument('-x', '--mx_seq', type=int, help="max. seq.", default=200)
 args.add_argument('-f', '--freq', type=int, help="print freq.", default=20)
 args.add_argument('-d', '--dataset', type=str, help="dataset", default="modena")
-args.add_argument('-p', '--workers', type=int, help="num processors", default=13)
+args.add_argument('-w', '--workers', type=int, help="num processors", default=13)
 args.add_argument('-e', '--interval_iter', type=int, help="sampling", default = 5)
 
 args = args.parse_args()
@@ -64,7 +66,7 @@ if __name__ == "__main__":
 
     for iter in range(args.interval_iter):runner(iter)
 
-    # get the final results and the confidence intervals.
+    # get the final results and the confidence intervals..
 
     DesignedRNA.generate_intervals()
     print("Done!!")
