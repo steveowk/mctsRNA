@@ -24,7 +24,14 @@ class Sequence():
     def is_terminal(self):
         return None not in self.rna_seq
     
-    def write_results(self, seq_id, data_id):
+    """
+    this function writes the results of each sequence to a file
+    """
+    def write_results(self, seq_id, data_id, _iter):
+        """
+        Function to write the result of the sample to a file
+
+        """
         assert (self.is_terminal())
         if not path.exists(self.config["result_path"]):
             os.mkdir(self.config["result_path"])
@@ -35,18 +42,18 @@ class Sequence():
         assert (len(seq_fold) == len(seq))
         ac = accuracy_score(self.target, seq_fold)
         row = [seq_id, int(ac * 100), "".join(self.rna_seq),"".join(self.target)]
-        with open(f"{self.config['result_path']}/{data_id}/summary.csv", "a") as f:
+        with open(f"{self.config['result_path']}/{data_id}/summary-{_iter}-.csv", "a") as f:
             writer = csv.writer(f)
             writer.writerow(row)
     """
-    Function to calculate the stats of the results
+    Function to calculate the stats of the results at the end of the sample run
     """
 
     @classmethod
     def write_summary(cls,  filename, desc, iter_id):
         # data saved
 
-        data = pd.read_csv(filename,names=["seq_id", "accuracy", "seq", "target"])
+        data = pd.read_csv(filename, names=["seq_id", "accuracy", "seq", "target"])
         
         # get the average accuracies and compute GC and the energy of the sequences
         
@@ -84,4 +91,4 @@ class Sequence():
             for col in cols:
                 sem = stats.loc[ix][col]['sem'] * const
                 stats.loc[ix][col]['sem'] = sem
-        stats.to_csv("./results/intervals.csv")
+        stats.to_csv("./results/intervals.csv", index=True)

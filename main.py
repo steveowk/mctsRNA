@@ -1,5 +1,5 @@
-import sys
-sys.path.append("/usr/local/lib/python3.9/site-packages")
+#import sys
+#sys.path.append("/usr/local/lib/python3.9/site-packages")
 from mctsRNA.LoadRNA import LoadData as DataModel
 import argparse
 import yaml
@@ -22,7 +22,7 @@ args.add_argument('-x', '--mx_seq', type=int, help="max. seq.", default=200)
 args.add_argument('-f', '--freq', type=int, help="print freq.", default=20)
 args.add_argument('-d', '--dataset', type=str, help="dataset", default="modena")
 args.add_argument('-w', '--workers', type=int, help="num processors", default=13)
-args.add_argument('-e', '--interval_iter', type=int, help="sampling", default = 5)
+args.add_argument('-e', '--interval_iter', type=int, help="sampling", default = 3)
 
 args = args.parse_args()
 
@@ -34,7 +34,7 @@ logging.log(logging.INFO, "Dataset loaded")
 dataset = data_model.get_dataset(args.dataset)  
 #if int(args.test_mode) ==1: dataset = dataset[:5]
 
-def seq_processor(seq):
+def seq_processor(seq, sample_iter):
     seq_id = dataset.index(seq)
     if len(list(seq)) > args.mx_seq:return None
     state = State(seq)
@@ -50,23 +50,22 @@ def seq_processor(seq):
         state.designed = deepcopy(designed_rna.rna_seq)
         action_ix += 1
     assert(designed_rna.is_terminal() and  state.is_terminal() and mcts.state.is_terminal())
-    designed_rna.write_results(seq_id+1, args.dataset)
+    designed_rna.write_results(seq_id+1, args.dataset, sample_iter)
 
 
-def runner(iter):
+def runner(_iter):
     # the main loop
 
-    Parallel(n_jobs=args.workers, verbose=args.freq)(delayed(seq_processor)(seq) for seq in dataset)
-    filename = f"{config['result_path']}{args.dataset}/summary.csv"
-    DesignedRNA.write_summary(filename, args.dataset, iter)
+    Parallel(n_jobs=args.workers, verbose=args.freq)(delayed(seq_processor)(seq, _iter) for seq in dataset)
+    filename = f"{config['result_path']}{args.dataset}/summary-{_iter}-.csv"
+    DesignedRNA.write_summary(filename, args.dataset, _iter)
     
 if __name__ == "__main__":
 
     # run the parallelised model to get samples of the size args.interval_iter
 
-    for iter in range(args.interval_iter):runner(iter)
+    for sample_iter in range(args.interval_iter):runner(sample_iter)
 
     # get the final results and the confidence intervals..
-
     DesignedRNA.generate_intervals()
     print("Done!!")
