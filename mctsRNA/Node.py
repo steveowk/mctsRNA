@@ -35,7 +35,7 @@ class TreeNode():
         return self.total_value / self.visits
 
     def U(self) -> float:  # explore
-        return self.C * self.prior * \
+        return self.C * 1.0 * \
             math.sqrt(2.0 * math.log(self.parent.visits) / self.visits)
 
     def best_child(self, infer=False):  # UCB formula
