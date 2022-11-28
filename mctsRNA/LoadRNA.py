@@ -24,18 +24,14 @@ class LoadData:
     # get data funtion helper 
 
     def get_dataset(self, name):
-        if name == "runge_valid":
+        if name == "runge":
             return self.runge_valid
         elif name == "modena":
             return self.modena
         elif name == "eterna":
             return self.eterna
-        elif name == "runge_train":
-            return self.runge_train
-        elif name == "kauf_train":
-            return self.kauf_train
-        elif name == "kauf_valid":
-            return self.kauf_valid
+        elif name == "kauf":
+            return self.kauf_train+self.kauf_valid
         else:
             raise ValueError("Invalid data name")
 

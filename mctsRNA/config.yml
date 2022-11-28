@@ -9,8 +9,8 @@ C : 1.42
 num_simulations : 100
 unpaired : ["A", "U", "G", "C"]
 paired:    ["AU", "CG", "GC", "UA", "GU", "UG"]
-paired_prob  :  {"AU" : 0.2,"CG" : 0.3, "GC" : 0.3, "UA" : 0.2, "GU" : 0.1, "UG" : 0.1}
-unpaired_prob : {"A": 0.5, "G": 0.3, "C": 0.1, "U": 0.1}
-mutation_threshold: 10
-max_sample : 1000
+paired_prob  :  {"AU" : 0.33,"CG" : 0.6, "GC" : 0.6, "UA" : 0.33, "GU" : 0.07, "UG" : 0.07}
+unpaired_prob : {"A": 0.93, "G": 0.05, "C": 0.01, "U": 0.01}
+mutation_threshold: 9
+max_sample : 5000
 result_path : "./results/"

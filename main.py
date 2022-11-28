@@ -36,7 +36,7 @@ dataset = data_model.get_dataset(args.dataset)
 
 def seq_processor(seq, sample_iter):
     seq_id = dataset.index(seq)
-    if len(list(seq)) > args.mx_seq:return None
+    if len(list(seq)) > args.mx_seq:return
     state = State(seq)
     mcts = MCTS(state, args.sims, args.search,configs=config)
     designed_rna = DesignedRNA(state.target, config)

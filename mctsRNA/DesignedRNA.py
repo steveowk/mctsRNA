@@ -64,11 +64,11 @@ class Sequence():
 
         total = data.shape[0]                           
         accuracy100 = data.loc[data['accuracy'] == 100]['accuracy'].shape[0] # acc 
-        energy100 = data.loc[data['accuracy'] == 100].energy.mean()
-        gc_score =  data.loc[data['accuracy'] == 100].gc.mean()
-        above90 =   data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)]['accuracy'].shape[0] # acc above 90
-        energy90 =  data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)].energy.mean()
-        gc_score90 = data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)].gc.mean()
+        energy100 =  data.loc[data['accuracy'] == 100].energy.mean()
+        gc_score =   data.loc[data['accuracy'] == 100].gc.mean()
+        above90 =    data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)]['accuracy'].shape[0] # acc above 90
+        energy90 =   data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)].energy.mean()
+        gc_score90 =  data.loc[(data['accuracy'] >=90) & (data['accuracy'] < 100)].gc.mean()
         with open(f"./results/All_results-{iter_id}-.csv", "a") as f:
             writer = csv.writer(f)
             writer.writerow([desc, total, f"{accuracy100:.2f}", f"{energy100:.2f}", f"{gc_score:.2f}", 

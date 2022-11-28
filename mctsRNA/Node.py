@@ -35,7 +35,7 @@ class TreeNode():
         return self.total_value / self.visits
 
     def U(self) -> float:  # explore
-        return self.C * 1.0 * \
+        return self.C * self.prior * \
             math.sqrt(2.0 * math.log(self.parent.visits) / self.visits)
 
     def best_child(self, infer=False):  # UCB formula
@@ -65,7 +65,7 @@ class TreeNode():
         return self.children[action]
 
     def rollout(self, search, verbose=False):  # simulation phase
-        current = self.state.copy_state()
+        current = self.state
         action_ix = self.action_ix
         while action_ix < self.state.max_seq_len and not current.is_terminal():
             action = choice(self.configs["paired"]) if current.paired(
